@@ -202,8 +202,11 @@ sourceSets.each {
 publishing {
     publications {
         create("mavenJava", MavenPublication) {
-            artifactId = project.mod_id
-            from components.java
+            artifactId = project.mod_id + "-forge"
+            artifact(tasks.named("jarJar")) {
+                extension = 'jar'
+                builtBy tasks.named("jarJar")
+            }
         }
     }
     repositories {
