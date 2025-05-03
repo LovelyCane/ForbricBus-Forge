@@ -202,14 +202,22 @@ sourceSets.each {
 publishing {
     publications {
         create("mavenJava", MavenPublication) {
-            artifactId = project.mod_id + "-forge"
+            from components.java
+            artifactId = "${project.mod_id}-lexforge"
+        }
+
+        create("fatJar", MavenPublication) {
             artifact(tasks.named("jarJar")) {
+                artifactId = "${project.mod_id}-lexforge"
                 extension = 'jar'
                 builtBy tasks.named("jarJar")
             }
         }
     }
+
     repositories {
-        mavenLocal()
+        maven {
+            url = uri("file:///D:/Project/maven-repo")
+        }
     }
 }
